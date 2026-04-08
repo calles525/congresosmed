@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Jornada de Egresados "Dra. Analiese Cordero" - Registro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9fafb;
+            color: #111827;
+            line-height: 1.5;
+        }
+
+        /* Header Styles */
+        .header {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #065f46, #047857, #0d9488);
+            color: white;
+        }
+
+        .header-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+        }
+
+        .header-overlay div:first-child {
+            position: absolute;
+            top: 0;
+            left: 25%;
+            width: 24rem;
+            height: 24rem;
+            background: white;
+            border-radius: 9999px;
+            filter: blur(80px);
+        }
+
+        .header-overlay div:last-child {
+            position: absolute;
+            bottom: 0;
+            right: 25%;
+            width: 16rem;
+            height: 16rem;
+            background: #14b8a6;
+            border-radius: 9999px;
+            filter: blur(80px);
+        }
+
+        .header-container {
+            position: relative;
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 2.5rem 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .header-container {
+                padding: 4rem 1rem;
+            }
+        }
+
+        .header-grid {
+            display: grid;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .header-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .logo-wrapper {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 0.125rem;
+        }
+
+        .promocion-text {
+            color: #a7f3d0;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        .institucion-text {
+            color: rgba(167, 243, 208, 0.8);
+            font-size: 0.75rem;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .title {
+                font-size: 2.25rem;
+            }
+        }
+
+        .subtitle {
+            color: #a7f3d0;
+            font-size: 1.125rem;
+            font-weight: 500;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .description {
+            color: rgba(209, 250, 229, 0.9);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            max-width: 32rem;
+            line-height: 1.625;
+        }
+
+        .info-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            font-size: 0.875rem;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            border-radius: 0.5rem;
+            padding: 0.5rem 0.75rem;
+        }
+
+        .badge-icon {
+            width: 1rem;
+            height: 1rem;
+            color: #a7f3d0;
+        }
+
+        .pricing-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(4px);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .pricing-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #a7f3d0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .pricing-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .pricing-item-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-icon {
+            width: 1rem;
+            height: 1rem;
+            color: #a7f3d0;
+        }
+
+        .pricing-price {
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .pricing-footer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            color: rgba(167, 243, 208, 0.7);
+            text-align: center;
+        }
+
+        .header-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4rem;
+            background: linear-gradient(to top, #f9fafb, transparent);
+        }
+
+        .main-container {
+            flex: 1;
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            width: 100%;
+        }
+
+        .tabs-container {
+            width: 100%;
+        }
+
+        .tabs-buttons {
+            display: flex;
+            gap: 0.5rem;
+            background: #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            background: transparent;
+            border: none;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #6b7280;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #111827;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-card, .admin-card {
+            background: white;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem 1.5rem 0;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #111827;
+        }
+
+        .card-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+            color: #059669;
+        }
+
+        .card-description {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .form-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            background: white;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #059669;
+            box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            background: #059669;
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #047857;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .btn-danger {
+            background: #dc2626;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .btn-success {
+            background: #10b981;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-icon {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .info-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .info-card, .contact-card {
+            background: white;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .contact-card {
+            background: #f3f4f6;
+        }
+
+        .benefits-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .benefit-icon {
+            width: 1rem;
+            height: 1rem;
+            color: #059669;
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .benefit-desc {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .features-list {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .features-list ul {
+            list-style: none;
+            font-size: 0.75rem;
+            color: #6b7280;
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        .features-list li svg {
+            width: 0.875rem;
+            height: 0.875rem;
+            color: #10b981;
+            flex-shrink: 0;
+        }
+
+        .contact-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: #4b5563;
+        }
+
+        .contact-item svg {
+            width: 0.875rem;
+            height: 0.875rem;
+            flex-shrink: 0;
+        }
+
+        /* Payment Tab */
+        .payment-card {
+            background: white;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            padding: 2rem;
+        }
+
+        .payment-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+
+        .payment-instructions {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .instruction-step {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .step-number {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #059669;
+            color: white;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .step-content p {
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content ul {
+            list-style: none;
+            margin-top: 0.5rem;
+        }
+
+        .step-content li {
+            color: #4b5563;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-content strong {
+            color: #059669;
+        }
+
+        .note {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        /* Admin Panel Styles */
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .admin-stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: #f3f4f6;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #059669;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-bar input {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            width: 200px;
+        }
+
+        .registros-table {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-approved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.25rem 0.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .approve-btn {
+            background: #10b981;
+            color: white;
+        }
+
+        .reject-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .view-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .footer {
+            border-top: 1px solid #e5e7eb;
+            background: #f9fafb;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .footer-content {
+                flex-direction: row;
+            }
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-logo-wrapper {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 0.375rem;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+        }
+
+        .footer-logo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .footer-text {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: #111827;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            z-index: 1000;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .toast.success {
+            background: #059669;
+        }
+
+        .toast.error {
+            background: #dc2626;
+        }
+
+        .toast.hidden {
+            display: none;
+        }
+
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #9ca3af;
+        }
+
+        .step.active {
+            color: #059669;
+        }
+
+        .step.completed {
+            color: #10b981;
+        }
+
+        .step-number-circle {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .step.active .step-number-circle {
+            background: #059669;
+            color: white;
+        }
+
+        .step.completed .step-number-circle {
+            background: #10b981;
+            color: white;
+        }
+
+        .step-line {
+            width: 4rem;
+            height: 2px;
+            background: #e5e7eb;
+            margin: 0 1rem;
+        }
+
+        .pago-info {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .pago-info h4 {
+            color: #065f46;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 2fr 1fr;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-overlay">
+                <div></div>
+                <div></div>
+            </div>
+            <div class="header-container">
+                <div class="header-grid">
+                    <div class="header-content">
+                        <div class="logo-container">
+                            <div class="logo-wrapper">
+                                <img src="https://placehold.co/60x60/ffffff/10b981?text=Logo" alt="Logo" class="logo-img">
+                            </div>
+                            <div>
+                                <span class="promocion-text">XXIV Promocion Puericultura y Pediatria</span>
+                                <p class="institucion-text">IVSS - UCV, 2026</p>
+                            </div>
+                        </div>
+                        <h1 class="title">I Jornada de Egresados</h1>
+                        <p class="subtitle">"Dra. Analiese Cordero"</p>
+                        <p class="description">Encuentro academico de alto nivel disenado para fortalecer los pilares de la atencion infantil. Mas de 10 ponentes expertos en subespecialidades pediatricas con destacada trayectoria.</p>
+                        
+                        <div class="info-badges">
+                            <div class="badge">
+                                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M8 2v4M16 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"/>
+                                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                                </svg>
+                                <span>Sábado, 16 de Mayo 2026</span>
+                            </div>
+                            <div class="badge">
+                                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <span>Club Social Canario, Acarigua</span>
+                            </div>
+                            <div class="badge">
+                                <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 6v6l4 2"/>
+                                    <circle cx="12" cy="12" r="10"/>
+                                </svg>
+                                <span>7:30 am - 6:00 pm</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3 class="pricing-title">Inversión</h3>
+                        <div class="pricing-list">
+                            <div class="pricing-item">
+                                <div class="pricing-item-left">
+                                    <svg class="pricing-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/>
+                                        <path d="M22 10v6M6 12.5V16a6 3 0 0 0 12 0v-3.5"/>
+                                    </svg>
+                                    <span>Bachilleres</span>
+                                </div>
+                                <span class="pricing-price">10 €</span>
+                            </div>
+                            <div class="pricing-item">
+                                <div class="pricing-item-left">
+                                    <svg class="pricing-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M11 2v2M5 2v2M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/>
+                                        <path d="M8 15a6 6 0 0 0 12 0v-3"/>
+                                        <circle cx="20" cy="10" r="2"/>
+                                    </svg>
+                                    <span>Med. Generales, Residentes y Enfermeria</span>
+                                </div>
+                                <span class="pricing-price">15 €</span>
+                            </div>
+                            <div class="pricing-item">
+                                <div class="pricing-item-left">
+                                    <svg class="pricing-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/>
+                                        <circle cx="12" cy="8" r="6"/>
+                                    </svg>
+                                    <span>Especialistas</span>
+                                </div>
+                                <span class="pricing-price">25 €</span>
+                            </div>
+                        </div>
+                        <div class="pricing-footer">
+                            Avalado por la Sociedad Venezolana de Puericultura y Pediatria, filial Portuguesa
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-gradient"></div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-container">
+            <div class="tabs-container">
+                <div class="tabs-buttons">
+                    <button class="tab-btn active" data-tab="registro">
+                        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <line x1="19" x2="19" y1="8" y2="14"/>
+                            <line x1="22" x2="16" y1="11" y2="11"/>
+                        </svg>
+                        <span>Registro</span>
+                    </button>
+                    <button class="tab-btn" data-tab="pago">
+                        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="5" width="20" height="14" rx="2"/>
+                            <line x1="2" x2="22" y1="10" y2="10"/>
+                        </svg>
+                        <span>Pago Móvil</span>
+                    </button>
+                    <button class="tab-btn" data-tab="admin">
+                        <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 15.5v-7M9 11h6"/>
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 8v1M12 15v1"/>
+                        </svg>
+                        <span>Administrar</span>
+                    </button>
+                </div>
+
+                <!-- Tab Registro - 2 PASOS -->
+                <div class="tab-content active" id="tab-registro">
+                    <div class="content-grid">
+                        <div class="form-card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="9" cy="7" r="4"/>
+                                        <line x1="19" x2="19" y1="8" y2="14"/>
+                                        <line x1="22" x2="16" y1="11" y2="11"/>
+                                    </svg>
+                                    Registro de Participantes
+                                </div>
+                                <div class="card-description">
+                                    Completa tus datos para inscribirte a la I Jornada de Egresados
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <!-- Indicador de pasos -->
+                                <div class="step-indicator">
+                                    <div class="step active" id="step1-indicator">
+                                        <div class="step-number-circle">1</div>
+                                        <span>Datos Personales</span>
+                                    </div>
+                                    <div class="step-line"></div>
+                                    <div class="step" id="step2-indicator">
+                                        <div class="step-number-circle">2</div>
+                                        <span>Datos de Pago</span>
+                                    </div>
+                                </div>
+
+                                <!-- Paso 1: Datos Personales -->
+                                <div id="step1">
+                                    <form id="step1Form">
+                                        <div class="form-grid">
+                                            <div class="form-group">
+                                                <label for="cedula">Cédula de Identidad *</label>
+                                                <input type="text" id="cedula" name="cedula" placeholder="V-12345678" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="correo">Correo Electrónico *</label>
+                                                <input type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="nombre">Nombre *</label>
+                                                <input type="text" id="nombre" name="nombre" placeholder="Juan" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="apellido">Apellido *</label>
+                                                <input type="text" id="apellido" name="apellido" placeholder="Perez" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="telefono">Teléfono *</label>
+                                                <input type="tel" id="telefono" name="telefono" placeholder="0412-1234567" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="profesion">Profesión *</label>
+                                                <select id="profesion" name="profesion" required>
+                                                    <option value="">Seleccione su profesión</option>
+                                                    <option value="Bachiller">Bachiller</option>
+                                                    <option value="Medico General">Médico General</option>
+                                                    <option value="Residente">Residente</option>
+                                                    <option value="Enfermero/a">Enfermero/a</option>
+                                                    <option value="Especialista">Especialista</option>
+                                                    <option value="Otro">Otro</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group full-width">
+                                                <label for="cargo">Cargo / Especialidad</label>
+                                                <input type="text" id="cargo" name="cargo" placeholder="Ej: Médico Cirujano General, Enfermero Jefe de UCI...">
+                                            </div>
+                                        </div>
+                                        <button type="button" class="submit-btn" id="nextToPago">
+                                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                                            </svg>
+                                            Continuar con datos de pago
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- Paso 2: Datos de Pago (oculto inicialmente) -->
+                                <div id="step2" style="display: none;">
+                                    <div class="pago-info">
+                                        <h4>💰 Información del Pago</h4>
+                                        <p><strong>Banco:</strong> Banco de Venezuela (Código 0102)</p>
+                                        <p><strong>Teléfono:</strong> 0424-5421151</p>
+                                        <p><strong>Cédula:</strong> 21.395.851</p>
+                                        <p><strong>Referencia:</strong> Tu nombre completo + "Jornada"</p>
+                                        <p><strong>Monto a pagar:</strong> <span id="montoMostrar" style="font-weight: bold; color: #059669;">-</span></p>
+                                    </div>
+                                    <form id="step2Form">
+                                        <div class="form-grid">
+                                            <div class="form-group full-width">
+                                                <label for="referencia">Número de Referencia / Comprobante *</label>
+                                                <input type="text" id="referencia" name="referencia" placeholder="Ingrese el número de referencia del pago" required>
+                                            </div>
+                                            <div class="form-group full-width">
+                                                <label for="observacion">Observaciones (opcional)</label>
+                                                <textarea id="observacion" name="observacion" rows="3" placeholder="Ej: Pago realizado el día..."></textarea>
+                                            </div>
+                                        </div>
+                                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                                            <button type="button" class="submit-btn btn-secondary" id="backToStep1">
+                                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                                                </svg>
+                                                Volver
+                                            </button>
+                                            <button type="submit" class="submit-btn">
+                                                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                </svg>
+                                                Finalizar Registro
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-sidebar">
+                            <div class="info-card">
+                                <div class="card-header">
+                                    <div class="card-title">
+                                        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+                                            <path d="M20 3v4M22 5h-4M4 17v2M5 18H3"/>
+                                        </svg>
+                                        ¿Por qué asistir?
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="benefits-list">
+                                        <div class="benefit-item">
+                                            <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>
+                                            </svg>
+                                            <div>
+                                                <p class="benefit-title">Actualización Integral</p>
+                                                <p class="benefit-desc">Abordaje de múltiples subespecialidades en un solo día.</p>
+                                            </div>
+                                        </div>
+                                        <div class="benefit-item">
+                                            <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+                                                <circle cx="12" cy="12" r="4"/>
+                                            </svg>
+                                            <div>
+                                                <p class="benefit-title">Networking</p>
+                                                <p class="benefit-desc">Conecta con colegas y referentes de la región.</p>
+                                            </div>
+                                        </div>
+                                        <div class="benefit-item">
+                                            <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/>
+                                                <circle cx="12" cy="8" r="6"/>
+                                            </svg>
+                                            <div>
+                                                <p class="benefit-title">Reconocimiento</p>
+                                                <p class="benefit-desc">Espacio dedicado a la trayectoria de la Dra. Cordero.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Pago -->
+                <div class="tab-content" id="tab-pago">
+                    <div class="payment-card">
+                        <h2 class="payment-title">📲 Instrucciones de Pago Móvil</h2>
+                        <div class="payment-instructions">
+                            <div class="instruction-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h3>Realiza el pago móvil</h3>
+                                    <p>Según tu categoría de registro:</p>
+                                    <ul>
+                                        <li>Bachilleres: <strong>10 €</strong> (o equivalente en moneda local)</li>
+                                        <li>Médicos Generales, Residentes y Enfermería: <strong>15 €</strong></li>
+                                        <li>Especialistas: <strong>25 €</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h3>Datos para el pago móvil</h3>
+                                    <p><strong>Banco:</strong> Banco de Venezuela (0102)</p>
+                                    <p><strong>Teléfono:</strong> 0424-5421151</p>
+                                    <p><strong>Cédula:</strong> 21.395.851</p>
+                                    <p><strong>Referencia:</strong> Tu nombre completo + "Jornada"</p>
+                                </div>
+                            </div>
+                            <div class="instruction-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h3>Confirma tu registro</h3>
+                                    <p>Después de realizar el pago, completa el registro en la pestaña <strong>"Registro"</strong> con tus datos y el número de referencia.</p>
+                                    <p class="note">Tu registro se confirmará en un plazo máximo de 24 horas hábiles.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Administración -->
+                <div class="tab-content" id="tab-admin">
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 15.5v-7M9 11h6"/>
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 8v1M12 15v1"/>
+                                </svg>
+                                Panel de Administración - Gestión de Registros
+                            </div>
+                            <div class="card-description">
+                                Aquí puedes ver todos los registros, verificar pagos y gestionar el estado de cada participante.
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="admin-header">
+                                <div class="admin-stats">
+                                    <div class="stat-card">
+                                        <div class="stat-number" id="totalRegistros">0</div>
+                                        <div class="stat-label">Total Registros</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-number" id="totalPendientes">0</div>
+                                        <div class="stat-label">Pendientes</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-number" id="totalAprobados">0</div>
+                                        <div class="stat-label">Aprobados</div>
+                                    </div>
+                                </div>
+                                <div class="search-bar">
+                                    <input type="text" id="searchInput" placeholder="Buscar por nombre, cédula...">
+                                </div>
+                            </div>
+                            <div class="registros-table">
+                                <table id="registrosTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Nombre</th>
+                                            <th>Cédula</th>
+                                            <th>Teléfono</th>
+                                            <th>Profesión</th>
+                                            <th>Referencia</th>
+                                            <th>Monto</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablaBody">
+                                        <tr>
+                                            <td colspan="9" style="text-align: center;">Cargando registros...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-content">
+                    <div class="footer-logo">
+                        <div class="footer-logo-wrapper">
+                            <img src="https://placehold.co/24x24/ffffff/10b981?text=Logo" alt="Logo">
+                        </div>
+                        <span>XXIV Promocion Puericultura y Pediatria IVSS-UCV</span>
+                    </div>
+                    <p class="footer-text">I Jornada de Egresados "Dra. Analiese Cordero" - Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <script>
+        // Configuración - URL de Google Sheets
+        const GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxU1w6v9Ee1rjPHaer3W8zv4wz7f4GejqZzArpUVyexrqg-Ab09tvoyO7oSwcABkRLD/exec';
+        
+        // Variables globales
+        let registros = [];
+        let datosPaso1 = null;
+
+        // Función para obtener el monto según la profesión
+        function getMonto(profesion) {
+            const montos = {
+                'Bachiller': '10 €',
+                'Medico General': '15 €',
+                'Residente': '15 €',
+                'Enfermero/a': '15 €',
+                'Especialista': '25 €',
+                'Otro': '15 €'
+            };
+            return montos[profesion] || '15 €';
+        }
+
+        // Mostrar mensaje toast
+        function mostrarMensaje(mensaje, tipo = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = mensaje;
+            toast.className = `toast ${tipo}`;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4000);
+        }
+
+        // Cargar registros desde localStorage
+        function cargarRegistros() {
+            const guardados = localStorage.getItem('registrosJornadaV2');
+            if (guardados) {
+                registros = JSON.parse(guardados);
+            } else {
+                registros = [];
+            }
+            actualizarTabla();
+            actualizarEstadisticas();
+        }
+
+        // Guardar registros en localStorage
+        function guardarRegistros() {
+            localStorage.setItem('registrosJornadaV2', JSON.stringify(registros));
+            actualizarTabla();
+            actualizarEstadisticas();
+        }
+
+        // Actualizar estadísticas
+        function actualizarEstadisticas() {
+            document.getElementById('totalRegistros').textContent = registros.length;
+            const pendientes = registros.filter(r => r.estado === 'pendiente').length;
+            const aprobados = registros.filter(r => r.estado === 'aprobado').length;
+            document.getElementById('totalPendientes').textContent = pendientes;
+            document.getElementById('totalAprobados').textContent = aprobados;
+        }
+
+        // Actualizar tabla de registros
+        function actualizarTabla() {
+            const tbody = document.getElementById('tablaBody');
+            const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            
+            let filtrados = registros;
+            if (searchTerm) {
+                filtrados = registros.filter(r => 
+                    r.nombre.toLowerCase().includes(searchTerm) || 
+                    r.apellido.toLowerCase().includes(searchTerm) ||
+                    r.cedula.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            if (filtrados.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" style="text-align: center;">No hay registros disponibles</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = filtrados.map((reg, index) => `
+                <tr>
+                    <td>${reg.fecha || new Date().toLocaleDateString()}</td>
+                    <td>${reg.nombre} ${reg.apellido}</td>
+                    <td>${reg.cedula}</td>
+                    <td>${reg.telefono}</td>
+                    <td>${reg.profesion}</td>
+                    <td>${reg.referencia || '-'}</td>
+                    <td>${reg.monto || getMonto(reg.profesion)}</td>
+                    <td>
+                        <span class="status-badge status-${reg.estado || 'pending'}">
+                            ${reg.estado === 'aprobado' ? '✅ Aprobado' : reg.estado === 'rechazado' ? '❌ Rechazado' : '⏳ Pendiente'}
+                        </span>
+                    </td>
+                    <td class="action-btns">
+                        ${reg.estado !== 'aprobado' ? `<button class="action-btn approve-btn" onclick="aprobarRegistro(${registros.indexOf(reg)})">Aprobar</button>` : ''}
+                        ${reg.estado !== 'rechazado' ? `<button class="action-btn reject-btn" onclick="rechazarRegistro(${registros.indexOf(reg)})">Rechazar</button>` : ''}
+                        <button class="action-btn view-btn" onclick="verDetalle(${registros.indexOf(reg)})">Ver</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Aprobar registro
+        function aprobarRegistro(index) {
+            registros[index].estado = 'aprobado';
+            guardarRegistros();
+            mostrarMensaje(`✅ Registro de ${registros[index].nombre} ${registros[index].apellido} aprobado`, 'success');
+            enviarAGoogleSheets(registros[index]);
+        }
+
+        // Rechazar registro
+        function rechazarRegistro(index) {
+            registros[index].estado = 'rechazado';
+            guardarRegistros();
+            mostrarMensaje(`❌ Registro de ${registros[index].nombre} ${registros[index].apellido} rechazado`, 'error');
+        }
+
+        // Ver detalle del registro
+        function verDetalle(index) {
+            const reg = registros[index];
+            alert(`📋 DETALLE DEL REGISTRO\n\n` +
+                `Nombre: ${reg.nombre} ${reg.apellido}\n` +
+                `Cédula: ${reg.cedula}\n` +
+                `Teléfono: ${reg.telefono}\n` +
+                `Correo: ${reg.correo}\n` +
+                `Profesión: ${reg.profesion}\n` +
+                `Cargo: ${reg.cargo || 'No especificado'}\n` +
+                `Referencia: ${reg.referencia || 'No registrada'}\n` +
+                `Monto: ${reg.monto || getMonto(reg.profesion)}\n` +
+                `Estado: ${reg.estado === 'aprobado' ? 'Aprobado' : reg.estado === 'rechazado' ? 'Rechazado' : 'Pendiente'}\n` +
+                `Fecha registro: ${reg.fecha || new Date().toLocaleString()}`);
+        }
+
+        // Enviar a Google Sheets
+        async function enviarAGoogleSheets(datos) {
+            try {
+                await fetch(GOOGLE_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datos)
+                });
+                console.log('Datos enviados a Google Sheets');
+            } catch (error) {
+                console.error('Error al enviar a Google Sheets:', error);
+            }
+        }
+
+        // Función para finalizar registro completo
+        async function finalizarRegistro(datosCompletos) {
+            const nuevoRegistro = {
+                ...datosCompletos,
+                fecha: new Date().toLocaleString(),
+                estado: 'pendiente',
+                monto: getMonto(datosCompletos.profesion)
+            };
+            
+            registros.push(nuevoRegistro);
+            guardarRegistros();
+            await enviarAGoogleSheets(nuevoRegistro);
+            
+            mostrarMensaje(`✅ ¡Registro exitoso! ${datosCompletos.nombre} ${datosCompletos.apellido}, tu registro está pendiente de verificación.`, 'success');
+            
+            // Limpiar formulario
+            document.getElementById('step1Form').reset();
+            document.getElementById('step2Form').reset();
+            
+            // Volver al paso 1
+            document.getElementById('step1').style.display = 'block';
+            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step1-indicator').classList.add('active');
+            document.getElementById('step2-indicator').classList.remove('active');
+            datosPaso1 = null;
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarRegistros();
+            
+            // Configurar tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.dataset.tab;
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById(`tab-${tabId}`).classList.add('active');
+                    
+                    if (tabId === 'admin') {
+                        actualizarTabla();
+                    }
+                });
+            });
+            
+            // Buscador
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', () => actualizarTabla());
+            }
+            
+            // Paso 1: Continuar a datos de pago
+            document.getElementById('nextToPago').addEventListener('click', () => {
+                const cedula = document.getElementById('cedula').value;
+                const correo = document.getElementById('correo').value;
+                const nombre = document.getElementById('nombre').value;
+                const apellido = document.getElementById('apellido').value;
+                const telefono = document.getElementById('telefono').value;
+                const profesion = document.getElementById('profesion').value;
+                const cargo = document.getElementById('cargo').value;
+                
+                if (!cedula || !correo || !nombre || !apellido || !telefono || !profesion) {
+                    mostrarMensaje('⚠️ Por favor, complete todos los campos obligatorios', 'error');
+                    return;
+                }
+                
+                datosPaso1 = { cedula, correo, nombre, apellido, telefono, profesion, cargo };
+                
+                const monto = getMonto(profesion);
+                document.getElementById('montoMostrar').textContent = monto;
+                
+                document.getElementById('step1').style.display = 'none';
+                document.getElementById('step2').style.display = 'block';
+                document.getElementById('step1-indicator').classList.remove('active');
+                document.getElementById('step1-indicator').classList.add('completed');
+                document.getElementById('step2-indicator').classList.add('active');
+            });
+            
+            // Volver al paso 1
+            document.getElementById('backToStep1').addEventListener('click', () => {
+                document.getElementById('step1').style.display = 'block';
+                document.getElementById('step2').style.display = 'none';
+                document.getElementById('step1-indicator').classList.add('active');
+                document.getElementById('step1-indicator').classList.remove('completed');
+                document.getElementById('step2-indicator').classList.remove('active');
+            });
+            
+            // Finalizar registro
+            document.getElementById('step2Form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const referencia = document.getElementById('referencia').value;
+                const observacion = document.getElementById('observacion').value;
+                
+                if (!referencia) {
+                    mostrarMensaje('⚠️ Por favor, ingrese el número de referencia del pago', 'error');
+                    return;
+                }
+                
+                if (datosPaso1) {
+                    finalizarRegistro({
+                        ...datosPaso1,
+                        referencia,
+                        observacion
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
