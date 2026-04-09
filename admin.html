@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Jornada de Egresados</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(0, 106, 97, 0.2);
+            border-top: 3px solid #006a61;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal-backdrop.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            max-width: 550px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-backdrop.active .modal-content {
+            transform: scale(1);
+        }
+
+        .estado-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .estado-verificado {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .estado-pendiente {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+
+        .estado-rechazado {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        .info-value {
+            color: #1f2937;
+        }
+    </style>
+</head>
+
+<body class="bg-[#f7f9fb] font-['Inter']">
+
+    <header class="bg-[#1e1b4b] text-white sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-[#89f5e7] text-3xl">shield_person</span>
+                <div>
+                    <h1 class="font-bold text-xl">Panel de Administración</h1>
+                    <p class="text-xs opacity-80">I Jornada de Egresados "Dra. Analiese Cordero"</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 text-sm">
+                <span class="material-symbols-outlined text-[#89f5e7] text-sm">schedule</span>
+                <span id="fechaActual"></span>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-2xl p-6 shadow-md border-l-4 border-[#006a61]">
+                <div>
+                    <p class="text-gray-500 text-sm">Total Inscritos</p>
+                    <p id="totalInscritos" class="text-4xl font-bold text-[#070235] mt-2">0</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-md border-l-4 border-[#10b981]">
+                <div>
+                    <p class="text-gray-500 text-sm">Pagos Verificados</p>
+                    <p id="pagosVerificados" class="text-4xl font-bold text-[#070235] mt-2">0</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-md border-l-4 border-[#89f5e7]">
+                <div>
+                    <p class="text-gray-500 text-sm">Asistieron</p>
+                    <p id="asistieron" class="text-4xl font-bold text-[#070235] mt-2">0</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-md border-l-4 border-[#070235]">
+                <div>
+                    <p class="text-gray-500 text-sm">Recaudado (EUR)</p>
+                    <p id="recaudado" class="text-4xl font-bold text-[#070235] mt-2">0 €</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú -->
+        <div class="flex flex-wrap gap-3 mb-8 border-b pb-4">
+            <button onclick="mostrarPanel('lista')"
+                class="px-5 py-2 rounded-full font-semibold bg-[#070235] text-white">📋 Registrados</button>
+            <button onclick="mostrarPanel('asistencia')"
+                class="px-5 py-2 rounded-full font-semibold bg-gray-200 hover:bg-[#006a61] hover:text-white">✅
+                Asistencia</button>
+            <button onclick="mostrarPanel('verificar')"
+                class="px-5 py-2 rounded-full font-semibold bg-gray-200 hover:bg-[#006a61] hover:text-white">💰
+                Verificar Pagos</button>
+            <button onclick="cargarPendientes()"
+                class="px-5 py-2 rounded-full font-semibold bg-gray-200 hover:bg-[#006a61] hover:text-white">⏳ Pagos
+                Pendientes</button>
+        </div>
+
+        <!-- Panel Lista -->
+        <div id="lista" class="panel bg-white rounded-2xl shadow-lg p-6">
+            <h3 class="text-xl font-bold text-[#070235] mb-4">📋 Registrados</h3>
+            <button onclick="cargarRegistrados()" class="mb-4 px-4 py-2 bg-[#006a61] text-white rounded-lg">🔄 Cargar
+                Lista</button>
+            <div id="tablaRegistrados" class="table-wrapper"></div>
+        </div>
+
+        <!-- Panel Asistencia -->
+        <div id="asistencia" class="panel bg-white rounded-2xl shadow-lg p-6 hidden">
+            <h3 class="text-xl font-bold text-[#070235] mb-4">✅ Marcar Asistencia</h3>
+            <div class="max-w-md">
+                <input type="text" id="cedulaAsistencia" class="w-full px-4 py-2 border rounded-xl"
+                    placeholder="Cédula">
+                <div class="flex gap-3 mt-4">
+                    <button onclick="buscarParticipanteSimple()" class="px-4 py-2 bg-[#070235] text-white rounded-lg">🔍
+                        Buscar</button>
+                    <button onclick="marcarAsistencia(true)" class="px-4 py-2 bg-green-600 text-white rounded-lg">✅ Sí
+                        Asistió</button>
+                    <button onclick="marcarAsistencia(false)" class="px-4 py-2 bg-red-600 text-white rounded-lg">❌ No
+                        Asistió</button>
+                </div>
+                <div id="infoParticipante" class="mt-4 p-3 bg-gray-100 rounded-xl hidden"></div>
+                <div id="resultadoAsistencia" class="mt-3"></div>
+            </div>
+        </div>
+
+        <!-- Panel Verificar -->
+        <div id="verificar" class="panel bg-white rounded-2xl shadow-lg p-6 hidden">
+            <h3 class="text-xl font-bold text-[#070235] mb-4">💰 Verificar Pago</h3>
+            <div class="max-w-md space-y-3">
+                <input type="text" id="cedulaPago" class="w-full px-4 py-2 border rounded-xl" placeholder="Cédula">
+                <input type="text" id="referenciaPago" class="w-full px-4 py-2 border rounded-xl"
+                    placeholder="Referencia">
+                <input type="text" id="verificadoPor" class="w-full px-4 py-2 border rounded-xl"
+                    placeholder="Verificado por">
+                <button onclick="verificarPago()" class="px-4 py-2 bg-[#006a61] text-white rounded-lg w-full">✅
+                    Verificar Pago</button>
+                <div id="resultadoVerificacion" class="mt-3"></div>
+            </div>
+        </div>
+
+        <div id="resultado" class="fixed bottom-4 right-4 z-50 hidden"></div>
+    </div>
+
+    <!-- Modal para gestionar pago -->
+    <div id="modalPago" class="modal-backdrop">
+        <div class="modal-content">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-[#070235]">💳 Gestión de Pago</h3>
+                    <button onclick="cerrarModal()" class="text-gray-400 hover:text-gray-600">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div id="modalBody" class="space-y-3">
+                    <!-- Aquí se cargarán los datos del participante -->
+                </div>
+                <div class="flex gap-3 mt-6">
+                    <button id="btnAprobar" onclick="aprobarPago()"
+                        class="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">✅
+                        Aprobar Pago</button>
+                    <button id="btnRechazar" onclick="rechazarPago()"
+                        class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">❌ Rechazar
+                        Pago</button>
+                </div>
+                <div id="modalResultado" class="mt-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const URL_WEBAPP = 'https://script.google.com/macros/s/AKfycbyOUtYSBdL4vQp8S2bEiHit1ZijA7t5N59gefdv81FkZqULrizhxfF7PMCozbb03oPrAg/exec';
+        let participanteActual = null;
+
+        document.getElementById('fechaActual').innerText = new Date().toLocaleDateString('es-VE');
+
+        function mostrarPanel(panelId) {
+            document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
+            document.getElementById(panelId).classList.remove('hidden');
+            if (panelId === 'lista') cargarRegistrados();
+        }
+
+        function mostrarMensaje(texto, tipo, elementoId) {
+            const div = document.getElementById(elementoId);
+            if (div) {
+                div.innerHTML = `<div class="p-3 rounded-xl ${tipo === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">${texto}</div>`;
+                setTimeout(() => div.innerHTML = '', 4000);
+            }
+        }
+
+        function getEstadoBadge(estado) {
+            if (estado === 'verificado') return '<span class="estado-badge estado-verificado">✅ Aprobado</span>';
+            if (estado === 'rechazado') return '<span class="estado-badge estado-rechazado">❌ Rechazado</span>';
+            return '<span class="estado-badge estado-pendiente">⏳ Pendiente</span>';
+        }
+
+        function formatMoney(amount) {
+            if (!amount) return 'No registrado';
+            return new Intl.NumberFormat('es-VE').format(amount) + ' Bs';
+        }
+
+        async function cargarEstadisticas() {
+            try {
+                const response = await fetch(`${URL_WEBAPP}?accion=estadisticas`);
+                const resultado = await response.json();
+                if (resultado.success) {
+                    document.getElementById('totalInscritos').innerText = resultado.data.total;
+                    document.getElementById('pagosVerificados').innerText = resultado.data.pagados;
+                    document.getElementById('asistieron').innerText = resultado.data.asistieron;
+                    document.getElementById('recaudado').innerText = resultado.data.totalRecaudadoEUR + ' €';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function cargarRegistrados() {
+            const tablaDiv = document.getElementById('tablaRegistrados');
+            tablaDiv.innerHTML = '<div class="text-center py-8"><div class="spinner mx-auto"></div><p>Cargando...</p></div>';
+            try {
+                const response = await fetch(`${URL_WEBAPP}?accion=listarRegistrados`);
+                const resultado = await response.json();
+                if (resultado.success && resultado.data.length > 0) {
+                    let html = `<table class="min-w-full border"><thead class="bg-[#1e1b4b] text-white"><tr><th class="p-2">#</th><th>Nombre</th><th>Cédula</th><th>Email</th><th>Estado Pago</th><th>Asistencia</th><th>Acciones</th></tr></thead><tbody>`;
+                    resultado.data.forEach((r, i) => {
+                        html += `<tr class="border-b">
+                            <td class="p-2">${i + 1}</td>
+                            <td class="p-2 font-medium">${r.nombre}</td>
+                            <td class="p-2">${r.cedula}</td>
+                            <td class="p-2">${r.email}</td>
+                            <td class="p-2">${getEstadoBadge(r.estadoPago)}</td>
+                            <td class="p-2">${r.asistencia || '❌'}</td>
+                            <td class="p-2">
+                                <button onclick="abrirModalGestionarPago('${r.cedula}')" class="px-3 py-1 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-sm">manage_accounts</span> Gestionar
+                                </button>
+                            </td>
+                        </tr>`;
+                    });
+                    html += '</tbody><table><p class="text-sm text-gray-500 mt-2">Total: ' + resultado.data.length + ' registrados</p>';
+                    tablaDiv.innerHTML = html;
+                } else {
+                    tablaDiv.innerHTML = '<p class="text-center py-8">No hay registrados</p>';
+                }
+            } catch (error) {
+                tablaDiv.innerHTML = '<p class="text-center text-red-600 py-8">Error cargando datos</p>';
+            }
+        }
+
+        async function abrirModalGestionarPago(cedula) {
+            const modal = document.getElementById('modalPago');
+            const modalBody = document.getElementById('modalBody');
+            const modalResultado = document.getElementById('modalResultado');
+            modalResultado.innerHTML = '';
+
+            modal.classList.add('active');
+            modalBody.innerHTML = '<div class="text-center py-4"><div class="spinner mx-auto"></div><p>Cargando datos...</p></div>';
+
+            try {
+                const response = await fetch(`${URL_WEBAPP}?accion=buscarParticipante&cedula=${encodeURIComponent(cedula)}`);
+                const resultado = await response.json();
+
+                if (resultado.success) {
+                    participanteActual = resultado.data;
+
+                    const estadoTexto = participanteActual.estadoPago === 'verificado' ? 'Aprobado' : (participanteActual.estadoPago === 'rechazado' ? 'Rechazado' : 'Pendiente');
+                    const estadoColor = participanteActual.estadoPago === 'verificado' ? 'text-green-600' : (participanteActual.estadoPago === 'rechazado' ? 'text-red-600' : 'text-orange-600');
+
+                    modalBody.innerHTML = `
+                        <div class="bg-gray-50 rounded-xl p-4 mb-3">
+                            <p class="text-sm text-gray-500 mb-2">👤 Información del participante</p>
+                            <div class="info-row"><span class="info-label">Nombre:</span><span class="info-value">${participanteActual.nombre || 'No registrado'}</span></div>
+                            <div class="info-row"><span class="info-label">Cédula:</span><span class="info-value">${participanteActual.cedula || 'No registrada'}</span></div>
+                            <div class="info-row"><span class="info-label">Email:</span><span class="info-value">${participanteActual.email || 'No registrado'}</span></div>
+                            <div class="info-row"><span class="info-label">Teléfono:</span><span class="info-value">${participanteActual.telefono || 'No registrado'}</span></div>
+                            <div class="info-row"><span class="info-label">Categoría:</span><span class="info-value">${participanteActual.categoria || 'No especificada'}</span></div>
+                        </div>
+                        <div class="bg-gray-50 rounded-xl p-4 mb-3">
+                            <p class="text-sm text-gray-500 mb-2">💰 Detalles del pago</p>
+                            <div class="info-row"><span class="info-label">Referencia:</span><span class="info-value">${participanteActual.referencia || 'No registrada'}</span></div>
+                            <div class="info-row"><span class="info-label">Monto pagado (Bs):</span><span class="info-value">${formatMoney(participanteActual.montoPagado)}</span></div>
+                            <div class="info-row"><span class="info-label">Monto esperado (EUR):</span><span class="info-value">${participanteActual.montoEUR || 'No calculado'} €</span></div>
+                            <div class="info-row"><span class="info-label">Fecha de pago:</span><span class="info-value">${participanteActual.fechaPago || 'No registrada'}</span></div>
+                        </div>
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <p class="text-sm text-gray-500 mb-2">📌 Estado actual</p>
+                            <div class="info-row"><span class="info-label">Estado del pago:</span><span class="info-value ${estadoColor} font-bold">${estadoTexto}</span></div>
+                            ${participanteActual.verificadoPor ? `<div class="info-row"><span class="info-label">Verificado por:</span><span class="info-value">${participanteActual.verificadoPor}</span></div>` : ''}
+                            ${participanteActual.fechaVerificacion ? `<div class="info-row"><span class="info-label">Fecha verificación:</span><span class="info-value">${participanteActual.fechaVerificacion}</span></div>` : ''}
+                            <div class="info-row"><span class="info-label">Asistencia:</span><span class="info-value">${participanteActual.asistencia || 'No registrada'}</span></div>
+                        </div>
+                    `;
+                } else {
+                    modalBody.innerHTML = `<p class="text-red-600 text-center">❌ ${resultado.error}</p>`;
+                }
+            } catch (error) {
+                modalBody.innerHTML = '<p class="text-red-600 text-center">❌ Error al cargar los datos</p>';
+            }
+        }
+
+        function cerrarModal() {
+            document.getElementById('modalPago').classList.remove('active');
+            participanteActual = null;
+        }
+
+        async function aprobarPago() {
+            if (!participanteActual) return;
+
+            const modalResultado = document.getElementById('modalResultado');
+            const verificador = prompt("¿Quién está aprobando este pago? (Escribe tu nombre)");
+            if (!verificador) return;
+
+            modalResultado.innerHTML = '<div class="text-center py-2"><div class="spinner mx-auto"></div><p>Procesando...</p></div>';
+
+            try {
+                const response = await fetch(`${URL_WEBAPP}?accion=verificarPagoAdmin&cedula=${encodeURIComponent(participanteActual.cedula)}&referencia=${encodeURIComponent(participanteActual.referencia || '')}&verificador=${encodeURIComponent(verificador)}`);
+                const resultado = await response.json();
+
+                if (resultado.success) {
+                    modalResultado.innerHTML = `<p class="text-green-600 text-center p-2 bg-green-50 rounded-lg">✅ ${resultado.message}</p>`;
+                    setTimeout(() => {
+                        cerrarModal();
+                        cargarRegistrados();
+                        cargarEstadisticas();
+                    }, 2000);
+                } else {
+                    modalResultado.innerHTML = `<p class="text-red-600 text-center">❌ ${resultado.error}</p>`;
+                }
+            } catch (error) {
+                modalResultado.innerHTML = '<p class="text-red-600 text-center">❌ Error al procesar la solicitud</p>';
+            }
+        }
+
+        async function rechazarPago() {
+            if (!participanteActual) return;
+
+            const modalResultado = document.getElementById('modalResultado');
+            const verificador = prompt("¿Quién está rechazando este pago? (Escribe tu nombre)");
+            if (!verificador) return;
+
+            const motivo = prompt("Motivo del rechazo (opcional):");
+
+            modalResultado.innerHTML = '<div class="text-center py-2"><div class="spinner mx-auto"></div><p>Procesando rechazo...</p></div>';
+
+            try {
+                const response = await fetch(`${URL_WEBAPP}?accion=rechazarPagoAdmin&cedula=${encodeURIComponent(participanteActual.cedula)}&referencia=${encodeURIComponent(participanteActual.referencia || '')}&verificador=${encodeURIComponent(verificador)}&motivo=${encodeURIComponent(motivo || '')}`);
+                const resultado = await response.json();
+
+                if (resultado.success) {
+                    modalResultado.innerHTML = `<p class="text-orange-600 text-center p-2 bg-orange-50 rounded-lg">⚠️ ${resultado.message}</p>`;
+                    setTimeout(() => {
+                        cerrarModal();
+                        cargarRegistrados();
+                        cargarEstadisticas();
+                    }, 2000);
+                } else {
+                    modalResultado.innerHTML = `<p class="text-red-600 text-center">❌ ${resultado.error}</p>`;
+                }
+            } catch (error) {
+                modalResultado.innerHTML = '<p class="text-red-600 text-center">❌ Error al procesar el rechazo</p>';
+            }
+        }
+
+        async function buscarParticipanteSimple() {
+            const cedula = document.getElementById('cedulaAsistencia').value;
+            const infoDiv = document.getElementById('infoParticipante');
+            if (!cedula) { mostrarMensaje('❌ Ingresa cédula', 'error', 'resultadoAsistencia'); return; }
+            infoDiv.classList.remove('hidden');
+            infoDiv.innerHTML = '<div class="spinner"></div> Buscando...';
+            try {
+                const response = await fetch(`${URL_WEBAPP}?accion=buscarParticipante&cedula=${encodeURIComponent(cedula)}`);
+                const resultado = await response.json();
+                if (resultado.success) {
+                    infoDiv.innerHTML = `<p class="text-green-600">✅ ${resultado.data.nombre}<br>📧 ${resultado.data.email}<br>💰 Estado: ${resultado.data.estadoPago}</p>`;
+                } else {
+                    infoDiv.innerHTML = `<p class="text-red-600">❌ ${resultado.error}</p>`;
+                }
+            } catch (error) {
+                infoDiv.innerHTML = '<p class="text-red-600">❌ Error</p>';
+            }
+        }
+
+        async function marcarAsistencia(asistio) {
+            const cedula = document.getElementById('cedulaAsistencia').value;
+            if (!cedula) { mostrarMensaje('❌ Ingresa cédula', 'error', 'resultadoAsistencia'); return; }
+            mostrarMensaje('⏳ Procesando...', 'success', 'resultadoAsistencia');
+            try {
+                const response = await fetch(`${URL_WEBAPP}?accion=marcarAsistencia&cedula=${encodeURIComponent(cedula)}&asistio=${asistio}`);
+                const resultado = await response.json();
+                if (resultado.success) {
+                    mostrarMensaje(`✅ ${resultado.message}`, 'success', 'resultadoAsistencia');
+                    buscarParticipanteSimple();
+                    cargarRegistrados();
+                } else {
+                    mostrarMensaje(`❌ ${resultado.error}`, 'error', 'resultadoAsistencia');
+                }
+            } catch (error) {
+                mostrarMensaje('❌ Error', 'error', 'resultadoAsistencia');
+            }
+        }
+
+        async function verificarPago() {
+            const cedula = document.getElementById('cedulaPago').value;
+            const referencia = document.getElementById('referenciaPago').value;
+            const verificador = document.getElementById('verificadoPor').value;
+            if (!cedula || !referencia || !verificador) {
+                mostrarMensaje('❌ Completa todos los campos', 'error', 'resultadoVerificacion');
+                return;
+            }
+            mostrarMensaje('⏳ Verificando...', 'success', 'resultadoVerificacion');
+            try {
+                const response = await fetch(`${URL_WEBAPP}?accion=verificarPagoAdmin&cedula=${encodeURIComponent(cedula)}&referencia=${encodeURIComponent(referencia)}&verificador=${encodeURIComponent(verificador)}`);
+                const resultado = await response.json();
+                if (resultado.success) {
+                    mostrarMensaje(`✅ ${resultado.message}`, 'success', 'resultadoVerificacion');
+                    document.getElementById('cedulaPago').value = '';
+                    document.getElementById('referenciaPago').value = '';
+                    document.getElementById('verificadoPor').value = '';
+                    cargarEstadisticas();
+                    cargarRegistrados();
+                } else {
+                    mostrarMensaje(`❌ ${resultado.error}`, 'error', 'resultadoVerificacion');
+                }
+            } catch (error) {
+                mostrarMensaje('❌ Error', 'error', 'resultadoVerificacion');
+            }
+        }
+
+        async function cargarPendientes() {
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.classList.remove('hidden');
+            resultadoDiv.innerHTML = '<div class="bg-white rounded-xl shadow-xl p-4"><div class="spinner mx-auto"></div><p>Cargando...</p></div>';
+            try {
+                const response = await fetch(`${URL_WEBAPP}?accion=pagosPendientes`);
+                const resultado = await response.json();
+                if (resultado.success && resultado.data.length > 0) {
+                    let html = '<div class="bg-white rounded-xl shadow-xl p-4 max-w-md"><h4 class="font-bold mb-2">💵 Pagos Pendientes</h4><ul>';
+                    resultado.data.forEach(p => {
+                        html += `<li class="border-b py-2"><strong>${p.nombre}</strong> (${p.cedula})<br><span class="text-sm">Ref: ${p.referencia}</span><br><span class="text-sm">Monto: ${formatMoney(p.montoPagado)}</span></li>`;
+                    });
+                    html += '</ul><button onclick="document.getElementById(\'resultado\').classList.add(\'hidden\')" class="mt-3 text-sm text-[#006a61] w-full">Cerrar</button></div>';
+                    resultadoDiv.innerHTML = html;
+                } else {
+                    resultadoDiv.innerHTML = '<div class="bg-white rounded-xl shadow-xl p-4"><p class="text-green-600">✅ No hay pagos pendientes</p><button onclick="document.getElementById(\'resultado\').classList.add(\'hidden\')" class="mt-2 text-sm">Cerrar</button></div>';
+                }
+            } catch (error) {
+                resultadoDiv.innerHTML = '<div class="bg-white rounded-xl shadow-xl p-4"><p class="text-red-600">❌ Error</p><button onclick="document.getElementById(\'resultado\').classList.add(\'hidden\')">Cerrar</button></div>';
+            }
+        }
+
+        cargarEstadisticas();
+        cargarRegistrados();
+    </script>
+</body>
+
+</html>
