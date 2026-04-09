@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Jornada de Egresados | Dra. Analiese Cordero</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -71,7 +71,7 @@
                         headline: ["Manrope"],
                         body: ["Inter"],
                         label: ["Inter"]
-                    }
+                    },
                 },
             },
         }
@@ -122,12 +122,20 @@
             z-index: 10000;
             min-width: 300px;
             max-width: 500px;
+            width: calc(100% - 2rem);
             background: white;
             border-radius: 16px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
             visibility: hidden;
             opacity: 0;
             transition: visibility 0.2s, opacity 0.2s;
+        }
+        @media (max-width: 480px) {
+            .alert-modal {
+                width: calc(100% - 2rem);
+                min-width: auto;
+                margin: 0 1rem;
+            }
         }
         .alert-modal.active {
             visibility: visible;
@@ -151,16 +159,51 @@
             font-family: 'Inter', monospace;
             font-weight: 600;
         }
+        /* Mejoras responsive para grid de precios */
+        @media (max-width: 640px) {
+            .pricing-grid {
+                gap: 1rem;
+            }
+            .pricing-card {
+                transform: none !important;
+                scale: 1 !important;
+            }
+        }
+        /* Ajustes de padding en móvil */
+        @media (max-width: 768px) {
+            .hero-padding {
+                padding: 2rem 1.5rem;
+            }
+            .form-padding {
+                padding: 1.5rem;
+            }
+            .section-padding {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+        /* Evitar desbordes horizontales */
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+        img, iframe, input, select, textarea {
+            max-width: 100%;
+        }
+        /* Ajustes para inputs táctiles */
+        input, select, textarea, button {
+            font-size: 16px; /* Previene zoom automático en iOS */
+        }
     </style>
 </head>
-<body class="bg-surface font-body text-on-surface">
+<body class="bg-surface font-body text-on-surface overflow-x-hidden">
 
     <!-- Overlay de carga -->
     <div id="overlay">
-        <div class="bg-white rounded-xl p-8 flex flex-col items-center gap-4 shadow-2xl">
+        <div class="bg-white rounded-xl p-6 md:p-8 flex flex-col items-center gap-4 shadow-2xl mx-4">
             <div class="spinner"></div>
-            <p class="text-primary font-semibold">Procesando registro...</p>
-            <p class="text-xs text-on-surface-variant">Por favor no cierres esta ventana</p>
+            <p class="text-primary font-semibold text-center">Procesando registro...</p>
+            <p class="text-xs text-on-surface-variant text-center">Por favor no cierres esta ventana</p>
         </div>
     </div>
 
@@ -173,147 +216,150 @@
         </div>
     </div>
 
-    <!-- TopNavBar -->
-    <header class="flex justify-between items-center w-full px-8 py-4 sticky top-0 z-50 backdrop-blur-xl bg-[#1e1b4b] shadow-[0_40px_60px_-15px_rgba(7,2,53,0.06)] font-['Manrope'] tracking-tight text-white">
+    <!-- TopNavBar simplificada pero mantenida -->
+    <header class="flex justify-between items-center w-full px-4 md:px-8 py-3 md:py-4 sticky top-0 z-50 backdrop-blur-xl bg-[#1e1b4b] shadow-[0_40px_60px_-15px_rgba(7,2,53,0.06)] font-['Manrope'] tracking-tight text-white">
+        <div class="text-sm md:text-base font-semibold truncate">Jornada Egresados 2026</div>
+        <div class="text-xs md:text-sm opacity-80 hidden sm:block">Dra. Analiese Cordero</div>
     </header>
 
-    <main class="max-w-[1440px] mx-auto flex">
-        <!-- SideNavBar -->
-        
-
+    <main class="w-full max-w-[1440px] mx-auto px-4 md:px-6 lg:px-8">
         <!-- Content Area -->
-        <section class="flex-1 px-6 md:px-12 py-12">
-            <!-- Hero Section -->
-            <div class="relative overflow-hidden rounded-xl bg-primary-container text-white p-12 mb-16 shadow-2xl">
+        <div class="py-6 md:py-12">
+            <!-- Hero Section - Mejorado responsive -->
+            <div class="relative overflow-hidden rounded-xl bg-primary-container text-white p-6 md:p-10 lg:p-12 mb-12 md:mb-16 shadow-2xl hero-padding">
                 <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 bg-gradient-to-l from-secondary-fixed to-transparent"></div>
-                <div class="relative z-10 max-w-2xl">
-                    <span class="inline-block px-4 py-1 rounded-full bg-secondary text-on-secondary text-xs font-bold uppercase tracking-widest mb-6">Simposio Médico 2026</span>
-                    <h1 class="text-5xl md:text-6xl font-headline font-extrabold tracking-tighter leading-none mb-4 uppercase">
-                        I Jornada de Egresados<br/>
+                <div class="relative z-10">
+                    <span class="inline-block px-3 md:px-4 py-1 rounded-full bg-secondary text-on-secondary text-[10px] md:text-xs font-bold uppercase tracking-widest mb-4 md:mb-6">Simposio Médico 2026</span>
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-headline font-extrabold tracking-tighter leading-tight md:leading-none mb-3 md:mb-4 uppercase">
+                        I Jornada de Egresados<br class="hidden sm:block"/>
                         <span class="text-secondary-fixed">Dra. Analiese Cordero</span>
                     </h1>
-                    <p class="text-xl opacity-90 font-light mb-8 italic">
+                    <p class="text-base md:text-xl opacity-90 font-light mb-6 md:mb-8 italic">
                         XXIV Promoción de Puericultura y Pediatría IVSS - UCV
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-white/10">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 pt-6 md:pt-8 border-t border-white/10">
                         <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-secondary-fixed">calendar_today</span>
+                            <span class="material-symbols-outlined text-secondary-fixed text-2xl md:text-3xl">calendar_today</span>
                             <div>
-                                <p class="text-[10px] uppercase opacity-50 tracking-widest">Date</p>
-                                <p class="font-bold">16 de Mayo 2026</p>
+                                <p class="text-[8px] md:text-[10px] uppercase opacity-50 tracking-widest">Date</p>
+                                <p class="font-bold text-sm md:text-base">16 de Mayo 2026</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-secondary-fixed">schedule</span>
+                            <span class="material-symbols-outlined text-secondary-fixed text-2xl md:text-3xl">schedule</span>
                             <div>
-                                <p class="text-[10px] uppercase opacity-50 tracking-widest">Time</p>
-                                <p class="font-bold">7:30am - 6:00pm</p>
+                                <p class="text-[8px] md:text-[10px] uppercase opacity-50 tracking-widest">Time</p>
+                                <p class="font-bold text-sm md:text-base">7:30am - 6:00pm</p>
                             </div>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-secondary-fixed">location_on</span>
+                        <div class="flex items-center gap-3 sm:col-span-2 md:col-span-1">
+                            <span class="material-symbols-outlined text-secondary-fixed text-2xl md:text-3xl">location_on</span>
                             <div>
-                                <p class="text-[10px] uppercase opacity-50 tracking-widest">Location</p>
-                                <p class="font-bold">Club Canario, Acarigua</p>
+                                <p class="text-[8px] md:text-[10px] uppercase opacity-50 tracking-widest">Location</p>
+                                <p class="font-bold text-sm md:text-base">Club Canario, Acarigua</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Pricing Grid -->
-            <div class="mb-20">
-                <div class="flex items-end justify-between mb-8">
+            <!-- Pricing Grid - Totalmente responsive con mejor adaptación -->
+            <div class="mb-16 md:mb-20">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-8">
                     <div>
-                        <h2 class="text-3xl font-headline font-bold text-primary">Categorías de inversión</h2>
-                        <p class="text-on-surface-variant">Seleccione el nivel que corresponda a su situación profesional.</p>
+                        <h2 class="text-2xl md:text-3xl font-headline font-bold text-primary">Categorías de inversión</h2>
+                        <p class="text-sm md:text-base text-on-surface-variant mt-1">Seleccione el nivel que corresponda a su situación profesional.</p>
                     </div>
                     <div class="hidden md:block h-[1px] flex-1 mx-8 bg-outline-variant opacity-20"></div>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="bg-surface-container-low p-8 flex flex-col justify-between transition-all hover:bg-surface-container duration-300 rounded-xl">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 pricing-grid">
+                    <!-- Tarjeta 1: Estudiantes -->
+                    <div class="bg-surface-container-low p-5 md:p-8 flex flex-col justify-between transition-all hover:bg-surface-container duration-300 rounded-xl">
                         <div>
-                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Estudiantes</p>
-                            <h3 class="text-2xl font-headline font-bold text-primary mb-6">Bachilleres</h3>
+                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-3 md:mb-4">Estudiantes</p>
+                            <h3 class="text-xl md:text-2xl font-headline font-bold text-primary mb-4 md:mb-6">Bachilleres</h3>
                         </div>
                         <div class="flex items-baseline gap-1">
-                            <span class="text-4xl font-headline font-extrabold text-secondary">10</span>
-                            <span class="text-xl font-headline font-bold text-secondary">€</span>
+                            <span class="text-3xl md:text-4xl font-headline font-extrabold text-secondary">10</span>
+                            <span class="text-lg md:text-xl font-headline font-bold text-secondary">€</span>
                         </div>
                     </div>
-                    <div class="bg-surface-container-low p-8 flex flex-col justify-between transition-all hover:bg-surface-container duration-300 rounded-xl">
+                    <!-- Tarjeta 2: Médicos Generales -->
+                    <div class="bg-surface-container-low p-5 md:p-8 flex flex-col justify-between transition-all hover:bg-surface-container duration-300 rounded-xl">
                         <div>
-                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Práctica general</p>
-                            <h3 class="text-2xl font-headline font-bold text-primary mb-6">Médicos Generales</h3>
+                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-3 md:mb-4">Práctica general</p>
+                            <h3 class="text-xl md:text-2xl font-headline font-bold text-primary mb-4 md:mb-6">Médicos Generales</h3>
                         </div>
                         <div class="flex items-baseline gap-1">
-                            <span class="text-4xl font-headline font-extrabold text-secondary">15</span>
-                            <span class="text-xl font-headline font-bold text-secondary">€</span>
+                            <span class="text-3xl md:text-4xl font-headline font-extrabold text-secondary">15</span>
+                            <span class="text-lg md:text-xl font-headline font-bold text-secondary">€</span>
                         </div>
                     </div>
-                    <div class="bg-primary text-white p-8 rounded-xl flex flex-col justify-between shadow-xl scale-105 relative z-10">
-                        <div class="absolute top-4 right-4 bg-secondary text-on-secondary text-[10px] px-2 py-1 rounded font-bold uppercase">Popular</div>
+                    <!-- Tarjeta 3: Destacada (Popular) -->
+                    <div class="bg-primary text-white p-5 md:p-8 rounded-xl flex flex-col justify-between shadow-xl relative z-10 pricing-card sm:scale-100 lg:scale-105">
+                        <div class="absolute top-2 right-2 md:top-4 md:right-4 bg-secondary text-on-secondary text-[9px] md:text-[10px] px-2 py-1 rounded font-bold uppercase">Popular</div>
                         <div>
-                            <p class="text-xs font-bold text-secondary-fixed uppercase tracking-widest mb-4">Personal de Apoyo</p>
-                            <h3 class="text-2xl font-headline font-bold text-white mb-6">Residentes / Enfermería</h3>
+                            <p class="text-xs font-bold text-secondary-fixed uppercase tracking-widest mb-3 md:mb-4">Personal de Apoyo</p>
+                            <h3 class="text-xl md:text-2xl font-headline font-bold text-white mb-4 md:mb-6">Residentes / Enfermería</h3>
                         </div>
                         <div class="flex items-baseline gap-1">
-                            <span class="text-4xl font-headline font-extrabold text-secondary-fixed">15</span>
-                            <span class="text-xl font-headline font-bold text-secondary-fixed">€</span>
+                            <span class="text-3xl md:text-4xl font-headline font-extrabold text-secondary-fixed">15</span>
+                            <span class="text-lg md:text-xl font-headline font-bold text-secondary-fixed">€</span>
                         </div>
                     </div>
-                    <div class="bg-surface-container-low p-8 flex flex-col justify-between transition-all hover:bg-surface-container duration-300 rounded-xl">
+                    <!-- Tarjeta 4: Especialistas -->
+                    <div class="bg-surface-container-low p-5 md:p-8 flex flex-col justify-between transition-all hover:bg-surface-container duration-300 rounded-xl">
                         <div>
-                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-4">Especialistas</p>
-                            <h3 class="text-2xl font-headline font-bold text-primary mb-6">Especialistas</h3>
+                            <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-3 md:mb-4">Especialistas</p>
+                            <h3 class="text-xl md:text-2xl font-headline font-bold text-primary mb-4 md:mb-6">Especialistas</h3>
                         </div>
                         <div class="flex items-baseline gap-1">
-                            <span class="text-4xl font-headline font-extrabold text-secondary">25</span>
-                            <span class="text-xl font-headline font-bold text-secondary">€</span>
+                            <span class="text-3xl md:text-4xl font-headline font-extrabold text-secondary">25</span>
+                            <span class="text-lg md:text-xl font-headline font-bold text-secondary">€</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Form Section -->
-            <div class="bg-surface-container-lowest p-8 md:p-16 shadow-[0_40px_60px_-15px_rgba(7,2,53,0.06)] max-w-4xl mx-auto border-l-4 border-secondary rounded-xl">
-                <form id="registroForm" class="space-y-12">
+            <!-- Form Section - Responsive mejorado -->
+            <div class="bg-surface-container-lowest p-5 md:p-8 lg:p-16 shadow-[0_40px_60px_-15px_rgba(7,2,53,0.06)] w-full border-l-4 border-secondary rounded-xl form-padding">
+                <form id="registroForm" class="space-y-8 md:space-y-12">
                     <!-- Section: Personal -->
                     <div>
-                        <div class="flex items-center gap-4 mb-8">
-                            <span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold">01</span>
-                            <h4 class="text-xl font-headline font-bold text-primary uppercase tracking-tight">Información Personal</h4>
+                        <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+                            <span class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold">01</span>
+                            <h4 class="text-lg md:text-xl font-headline font-bold text-primary uppercase tracking-tight">Información Personal</h4>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 md:gap-x-8 gap-y-5 md:gap-y-6">
                             <div class="space-y-2">
                                 <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Nombre Completo *</label>
-                                <input id="nombreCompleto" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4" placeholder="Ej: María José González" type="text" required>
+                                <input id="nombreCompleto" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="Ej: María José González" type="text" required>
                             </div>
                             <div class="space-y-2">
                                 <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Cédula *</label>
-                                <input id="cedula" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4" placeholder="V-12.345.678" type="text" required>
+                                <input id="cedula" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="V-12.345.678" type="text" required>
                             </div>
                             <div class="space-y-2">
                                 <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Correo Electrónico *</label>
-                                <input id="email" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4" placeholder="email@hospital.com" type="email" required>
+                                <input id="email" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="email@hospital.com" type="email" required>
                             </div>
                             <div class="space-y-2">
                                 <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Teléfono *</label>
-                                <input id="telefono" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4" placeholder="+58 (412) 000-0000" type="tel" required>
+                                <input id="telefono" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="+58 (412) 000-0000" type="tel" required>
                             </div>
                         </div>
                     </div>
 
                     <!-- Section: Category & Payment -->
                     <div>
-                        <div class="flex items-center gap-4 mb-8">
-                            <span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold">02</span>
-                            <h4 class="text-xl font-headline font-bold text-primary uppercase tracking-tight">Categoría y Pago</h4>
+                        <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+                            <span class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold">02</span>
+                            <h4 class="text-lg md:text-xl font-headline font-bold text-primary uppercase tracking-tight">Categoría y Pago</h4>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                            <div class="space-y-2 md:col-span-2">
+                        <div class="grid grid-cols-1 gap-y-5 md:gap-y-6">
+                            <div class="space-y-2">
                                 <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Categoría Profesional *</label>
-                                <select id="categoria" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4" required>
+                                <select id="categoria" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" required>
                                     <option value="">Selecciona tu categoría</option>
                                     <option value="10">Bachilleres - 10€</option>
                                     <option value="15">Médicos Generales - 15€</option>
@@ -321,35 +367,37 @@
                                     <option value="25">Especialistas - 25€</option>
                                 </select>
                             </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Monto a Pagar (Bs) *</label>
-                                <input type="text" id="montoMostrado" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 font-mono font-bold text-secondary" readonly placeholder="Selecciona una categoría">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Referencia de Pago *</label>
-                                <input id="referenciaPago" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4" placeholder="#0012345" type="text" required>
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Fecha de Transacción *</label>
-                                <input id="fechaPago" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4" type="date" required>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Monto a Pagar (Bs) *</label>
+                                    <input type="text" id="montoMostrado" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 transition-all py-3 px-4 font-mono font-bold text-secondary text-base" readonly placeholder="Selecciona una categoría">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Referencia de Pago *</label>
+                                    <input id="referenciaPago" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="#0012345" type="text" required>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Fecha de Transacción *</label>
+                                    <input id="fechaPago" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" type="date" required>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Section: Graduate Details -->
                     <div>
-                        <div class="flex items-center gap-4 mb-8">
-                            <span class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold">03</span>
-                            <h4 class="text-xl font-headline font-bold text-primary uppercase tracking-tight">Estado de Egresado</h4>
+                        <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
+                            <span class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold">03</span>
+                            <h4 class="text-lg md:text-xl font-headline font-bold text-primary uppercase tracking-tight">Estado de Egresado</h4>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 md:gap-x-8 gap-y-5 md:gap-y-6">
                             <div class="space-y-2">
                                 <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Nombre de Egreso</label>
-                                <input id="nombreEgresado" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4" placeholder="Nombre con que egresaste">
+                                <input id="nombreEgresado" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="Nombre con que egresaste">
                             </div>
                             <div class="space-y-2">
                                 <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Año de Egreso</label>
-                                <input id="anoEgreso" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4" placeholder="YYYY" type="number">
+                                <input id="anoEgreso" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="YYYY" type="number">
                             </div>
                         </div>
                     </div>
@@ -357,36 +405,35 @@
                     <!-- Section: Notes -->
                     <div class="space-y-2">
                         <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Observaciones Adicionales</label>
-                        <textarea id="observaciones" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4" placeholder="Requerimientos dietéticos, accesibilidad especial, etc." rows="4"></textarea>
+                        <textarea id="observaciones" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="Requerimientos dietéticos, accesibilidad especial, etc." rows="3"></textarea>
                     </div>
 
-                    <div class="pt-8">
-                        <button id="submitBtn" type="submit" class="group flex items-center justify-center gap-4 w-full bg-primary text-white py-5 rounded-full font-headline font-extrabold text-xl hover:bg-tertiary transition-all shadow-xl hover:shadow-2xl active:scale-95 duration-200">
+                    <div class="pt-4 md:pt-8">
+                        <button id="submitBtn" type="submit" class="group flex items-center justify-center gap-3 md:gap-4 w-full bg-primary text-white py-4 md:py-5 rounded-full font-headline font-extrabold text-lg md:text-xl hover:bg-tertiary transition-all shadow-xl hover:shadow-2xl active:scale-95 duration-200">
                             Registrar e Inscribirme
-                            <span class="material-symbols-outlined text-secondary-fixed group-hover:scale-125 transition-transform">check_circle</span>
+                            <span class="material-symbols-outlined text-secondary-fixed text-2xl md:text-3xl group-hover:scale-125 transition-transform">check_circle</span>
                         </button>
-                        <p class="text-center text-[10px] text-on-surface-variant uppercase tracking-widest mt-6">Secure registration portal • Verified by Clinical Curator</p>
+                        <p class="text-center text-[9px] md:text-[10px] text-on-surface-variant uppercase tracking-widest mt-4 md:mt-6">Secure registration portal • Verified by Clinical Curator</p>
                     </div>
                 </form>
             </div>
-        </section>
+        </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="flex flex-col md:flex-row justify-between items-center px-12 w-full py-12 border-t border-[#c8c5d0]/15 bg-[#f7f9fb] font-['Inter'] text-xs uppercase tracking-widest">
-        <div class="flex flex-col gap-4 mb-8 md:mb-0">
-            <p class="text-[#47464f]"> <a href="https://nexologic.netlify.app/" target="_blank" rel="noopener noreferrer">Nexo Logic</a> © 2026 Curador clínico pediátrico. Todos los derechos reservados.</p>
+    <!-- Footer - Responsive -->
+    <footer class="flex flex-col md:flex-row justify-between items-center px-4 md:px-12 py-8 md:py-12 w-full border-t border-[#c8c5d0]/15 bg-[#f7f9fb] font-['Inter'] text-xs uppercase tracking-widest gap-4">
+        <div class="text-center md:text-left">
+            <p class="text-[#47464f] text-[10px] md:text-xs"> <a href="https://nexologic.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:underline">Nexo Logic</a> © 2026 Curador clínico pediátrico. Todos los derechos reservados.</p>
         </div>
-        <div class="flex flex-wrap justify-center gap-8 text-[#47464f]">
-            <div class="flex items-center gap-2">
+        <div class="flex flex-wrap justify-center gap-4 md:gap-8 text-[#47464f] text-[10px] md:text-xs">
+            <div class="flex items-center gap-1 md:gap-2">
                 <span class="material-symbols-outlined text-sm">phone</span>
                 <span>+58 424-5283266</span>
             </div>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-1 md:gap-2">
                 <span class="material-symbols-outlined text-sm">mail</span>
                 <span>nexologic.soporte@gmail.com</span>
             </div>
-            
         </div>
     </footer>
 
@@ -422,7 +469,6 @@
                 console.log('Tasa EUR/BS obtenida:', tasaEuroBs);
             } catch (error) {
                 console.error('Error obteniendo tasa:', error);
-                // Usar una tasa por defecto si falla la API
                 tasaEuroBs = 556.51900185;
                 mostrarAlerta('⚠️ No se pudo obtener la tasa de cambio actual. Se usará una tasa de referencia.', 'error');
             }
@@ -435,7 +481,6 @@
                 montoMostrado.value = '';
                 return;
             }
-            
             const montoBs = euros * tasaEuroBs;
             montoMostrado.value = `Bs ${formatMoney(montoBs)}`;
         }
@@ -487,7 +532,6 @@
                 }
             }
             
-            // Validar que el monto no esté vacío
             if (!montoMostrado.value) {
                 mostrarAlerta('❌ Por favor selecciona una categoría profesional', 'error');
                 return false;
@@ -497,7 +541,6 @@
                 mostrarAlerta('❌ Por favor completa todos los campos obligatorios', 'error');
                 return false;
             }
-            
             return true;
         }
         
@@ -505,14 +548,10 @@
         async function enviarRegistro() {
             if (!validarFormulario()) return;
             
-            // Obtener el monto en Bs (sin el símbolo y sin comas)
             const montoBsTexto = montoMostrado.value.replace('Bs ', '').replace(/\./g, '').replace(',', '.');
             const montoPagado = parseFloat(montoBsTexto);
-            
-            // Obtener el valor en euros de la categoría
             const valorEuros = parseFloat(categoriaSelect.value);
             
-            // Mapear categoría al texto esperado por el backend
             let categoriaTexto = '';
             switch(valorEuros) {
                 case 10: categoriaTexto = 'bachiller'; break;
@@ -536,7 +575,6 @@
             };
             
             setLoading(true);
-            
             try {
                 await fetch(URL_WEBAPP, {
                     method: 'POST',
@@ -544,11 +582,9 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(datos)
                 });
-                
                 mostrarAlerta('✅ ¡Registro exitoso! Tu pago está pendiente de verificación. Recibirás un correo de confirmación.', 'success');
                 document.getElementById('registroForm').reset();
                 montoMostrado.value = '';
-                
             } catch (error) {
                 console.error('Error:', error);
                 mostrarAlerta('❌ Error al enviar el registro. Por favor intenta nuevamente.', 'error');
@@ -565,7 +601,6 @@
         
         categoriaSelect.addEventListener('change', actualizarMonto);
         
-        // Inicializar: obtener tasa y configurar evento del select
         (async function init() {
             await obtenerTasaEuro();
             categoriaSelect.addEventListener('change', actualizarMonto);
