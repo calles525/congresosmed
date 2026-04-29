@@ -80,13 +80,10 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        /* Overlay y Spinner */
         #overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(4px);
             z-index: 9999;
@@ -97,102 +94,112 @@
             opacity: 0;
             transition: visibility 0.2s, opacity 0.2s;
         }
-        #overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
+        #overlay.active { visibility: visible; opacity: 1; }
         .spinner {
-            width: 60px;
-            height: 60px;
+            width: 60px; height: 60px;
             border: 4px solid rgba(255, 255, 255, 0.3);
             border-top: 4px solid #89f5e7;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        /* Modal de alertas */
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .alert-modal {
             position: fixed;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             z-index: 10000;
-            min-width: 300px;
-            max-width: 500px;
+            min-width: 300px; max-width: 500px;
             width: calc(100% - 2rem);
             background: white;
             border-radius: 16px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            visibility: hidden;
-            opacity: 0;
+            visibility: hidden; opacity: 0;
             transition: visibility 0.2s, opacity 0.2s;
         }
         @media (max-width: 480px) {
-            .alert-modal {
-                width: calc(100% - 2rem);
-                min-width: auto;
-                margin: 0 1rem;
-            }
+            .alert-modal { width: calc(100% - 2rem); min-width: auto; margin: 0 1rem; }
         }
-        .alert-modal.active {
-            visibility: visible;
+        .alert-modal.active { visibility: visible; opacity: 1; }
+        .alert-content { padding: 24px; text-align: center; }
+        .alert-success { border-top: 4px solid #10b981; }
+        .alert-error { border-top: 4px solid #ef4444; }
+        .alert-info { border-top: 4px solid #3b82f6; }
+        @media (max-width: 640px) {
+            .pricing-grid { gap: 1rem; }
+            .pricing-card { transform: none !important; scale: 1 !important; }
+        }
+        @media (max-width: 768px) {
+            .hero-padding { padding: 2rem 1.5rem; }
+            .form-padding { padding: 1.5rem; }
+            .section-padding { padding-left: 1rem; padding-right: 1rem; }
+        }
+        body { overflow-x: hidden; width: 100%; }
+        img, iframe, input, select, textarea { max-width: 100%; }
+        input, select, textarea, button { font-size: 16px; }
+
+        /* Toggle switch personalizado */
+        .toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #c8c5d0;
+            transition: 0.3s;
+            border-radius: 28px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px; width: 22px;
+            left: 3px; bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: #006a61;
+        }
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Transición suave para campos de pago */
+        #pagoFields {
+            max-height: 500px;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
             opacity: 1;
         }
-        .alert-content {
-            padding: 24px;
-            text-align: center;
+        #pagoFields.hidden-fields {
+            max-height: 0;
+            opacity: 0;
         }
-        .alert-success {
-            border-top: 4px solid #10b981;
+
+        /* Estilo del banner sin pago */
+        .sin-pago-banner {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 1px solid #f59e0b;
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            animation: slideDown 0.3s ease;
         }
-        .alert-error {
-            border-top: 4px solid #ef4444;
-        }
-        .alert-info {
-            border-top: 4px solid #3b82f6;
-        }
-        /* Formato del campo monto */
-        .monto-input {
-            font-family: 'Inter', monospace;
-            font-weight: 600;
-        }
-        /* Mejoras responsive para grid de precios */
-        @media (max-width: 640px) {
-            .pricing-grid {
-                gap: 1rem;
-            }
-            .pricing-card {
-                transform: none !important;
-                scale: 1 !important;
-            }
-        }
-        /* Ajustes de padding en móvil */
-        @media (max-width: 768px) {
-            .hero-padding {
-                padding: 2rem 1.5rem;
-            }
-            .form-padding {
-                padding: 1.5rem;
-            }
-            .section-padding {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-        }
-        /* Evitar desbordes horizontales */
-        body {
-            overflow-x: hidden;
-            width: 100%;
-        }
-        img, iframe, input, select, textarea {
-            max-width: 100%;
-        }
-        /* Ajustes para inputs táctiles */
-        input, select, textarea, button {
-            font-size: 16px; /* Previene zoom automático en iOS */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -216,16 +223,16 @@
         </div>
     </div>
 
-    <!-- TopNavBar simplificada pero mantenida -->
+    <!-- TopNavBar -->
     <header class="flex justify-between items-center w-full px-4 md:px-8 py-3 md:py-4 sticky top-0 z-50 backdrop-blur-xl bg-[#1e1b4b] shadow-[0_40px_60px_-15px_rgba(7,2,53,0.06)] font-['Manrope'] tracking-tight text-white">
         <div class="text-sm md:text-base font-semibold truncate">Jornada Egresados 2026</div>
         <div class="text-xs md:text-sm opacity-80 hidden sm:block">Dra. Analiese Cordero</div>
     </header>
 
     <main class="w-full max-w-[1440px] mx-auto px-4 md:px-6 lg:px-8">
-        <!-- Content Area -->
         <div class="py-6 md:py-12">
-            <!-- Hero Section - Mejorado responsive -->
+
+            <!-- Hero Section -->
             <div class="relative overflow-hidden rounded-xl bg-primary-container text-white p-6 md:p-10 lg:p-12 mb-12 md:mb-16 shadow-2xl hero-padding">
                 <div class="absolute top-0 right-0 w-1/2 h-full opacity-10 bg-gradient-to-l from-secondary-fixed to-transparent"></div>
                 <div class="relative z-10">
@@ -263,7 +270,7 @@
                 </div>
             </div>
 
-            <!-- Pricing Grid - Totalmente responsive con mejor adaptación -->
+            <!-- Pricing Grid -->
             <div class="mb-16 md:mb-20">
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 md:mb-8">
                     <div>
@@ -273,7 +280,6 @@
                     <div class="hidden md:block h-[1px] flex-1 mx-8 bg-outline-variant opacity-20"></div>
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 pricing-grid">
-                    <!-- Tarjeta 1: Estudiantes -->
                     <div class="bg-surface-container-low p-5 md:p-8 flex flex-col justify-between transition-all hover:bg-surface-container duration-300 rounded-xl">
                         <div>
                             <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-3 md:mb-4">Estudiantes</p>
@@ -284,7 +290,6 @@
                             <span class="text-lg md:text-xl font-headline font-bold text-secondary">€</span>
                         </div>
                     </div>
-                    <!-- Tarjeta 2: Médicos Generales -->
                     <div class="bg-surface-container-low p-5 md:p-8 flex flex-col justify-between transition-all hover:bg-surface-container duration-300 rounded-xl">
                         <div>
                             <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-3 md:mb-4">Práctica general</p>
@@ -295,7 +300,6 @@
                             <span class="text-lg md:text-xl font-headline font-bold text-secondary">€</span>
                         </div>
                     </div>
-                    <!-- Tarjeta 3: Destacada (Popular) -->
                     <div class="bg-primary text-white p-5 md:p-8 rounded-xl flex flex-col justify-between shadow-xl relative z-10 pricing-card sm:scale-100 lg:scale-105">
                         <div class="absolute top-2 right-2 md:top-4 md:right-4 bg-secondary text-on-secondary text-[9px] md:text-[10px] px-2 py-1 rounded font-bold uppercase">Popular</div>
                         <div>
@@ -307,7 +311,6 @@
                             <span class="text-lg md:text-xl font-headline font-bold text-secondary-fixed">€</span>
                         </div>
                     </div>
-                    <!-- Tarjeta 4: Especialistas -->
                     <div class="bg-surface-container-low p-5 md:p-8 flex flex-col justify-between transition-all hover:bg-surface-container duration-300 rounded-xl">
                         <div>
                             <p class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-3 md:mb-4">Especialistas</p>
@@ -321,10 +324,11 @@
                 </div>
             </div>
 
-            <!-- Form Section - Responsive mejorado -->
+            <!-- Form Section -->
             <div class="bg-surface-container-lowest p-5 md:p-8 lg:p-16 shadow-[0_40px_60px_-15px_rgba(7,2,53,0.06)] w-full border-l-4 border-secondary rounded-xl form-padding">
                 <form id="registroForm" class="space-y-8 md:space-y-12">
-                    <!-- Section: Personal -->
+
+                    <!-- 01: Información Personal -->
                     <div>
                         <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
                             <span class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold">01</span>
@@ -350,58 +354,87 @@
                         </div>
                     </div>
 
-                    <!-- Section: Category & Payment -->
+                    <!-- 02: Categoría y Pago -->
                     <div>
                         <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
                             <span class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold">02</span>
                             <h4 class="text-lg md:text-xl font-headline font-bold text-primary uppercase tracking-tight">Categoría y Pago</h4>
                         </div>
+
                         <div class="grid grid-cols-1 gap-y-5 md:gap-y-6">
+                            <!-- Categoría -->
                             <div class="space-y-2">
                                 <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Categoría Profesional *</label>
                                 <select id="categoria" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" required>
                                     <option value="">Selecciona tu categoría</option>
                                     <option value="10">Bachilleres - 10€</option>
                                     <option value="15">Médicos Generales - 15€</option>
-                                    <option value="15">Residentes / Enfermería - 15€</option>
+                                    <option value="15_residente">Residentes / Enfermería - 15€</option>
                                     <option value="25">Especialistas - 25€</option>
                                 </select>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
-                                <div class="space-y-2">
-                                    <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Monto a Pagar (Bs) *</label>
-                                    <input type="text" id="montoMostrado" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 transition-all py-3 px-4 font-mono font-bold text-secondary text-base" readonly placeholder="Selecciona una categoría">
+
+                            <!-- Toggle: Registrar sin pago -->
+                            <div class="flex items-center justify-between bg-surface-container-low rounded-xl p-4 md:p-5 gap-4">
+                                <div class="flex items-start gap-3">
+                                    <span class="material-symbols-outlined text-amber-500 text-xl mt-0.5">info</span>
+                                    <div>
+                                        <p class="text-sm font-semibold text-on-surface">Registrar sin realizar pago</p>
+                                        <p class="text-xs text-on-surface-variant mt-0.5">Activa esta opción si deseas inscribirte ahora y pagar después.</p>
+                                    </div>
                                 </div>
-                                <div class="space-y-2">
-                                    <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Referencia de Pago *</label>
-                                    <input id="referenciaPago" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="#0012345" type="text" required>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="sinPagoToggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+
+                            <!-- Banner informativo (se muestra cuando sin pago está activo) -->
+                            <div id="sinPagoBanner" class="hidden">
+                                <div class="sin-pago-banner">
+                                    <span class="material-symbols-outlined text-amber-600 text-xl flex-shrink-0 mt-0.5">schedule</span>
+                                    <div>
+                                        <p class="text-sm font-semibold text-amber-900">Registro sin pago activado</p>
+                                        <p class="text-xs text-amber-800 mt-1">Tu inscripción quedará registrada con estado <strong>"Pendiente de pago"</strong>. Podrás completar el pago más adelante y enviar tu comprobante por correo o WhatsApp.</p>
+                                    </div>
                                 </div>
-                                <div class="space-y-2">
-                                    <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Fecha de Transacción *</label>
-                                    <input id="fechaPago" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" type="date" required>
+                            </div>
+
+                            <!-- Campos de pago (se ocultan cuando sin pago está activo) -->
+                            <div id="pagoFields">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Monto a Pagar (Bs)</label>
+                                        <input type="text" id="montoMostrado" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 transition-all py-3 px-4 font-mono font-bold text-secondary text-base" readonly placeholder="Selecciona una categoría">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Referencia de Pago <span id="refRequired" class="text-error">*</span></label>
+                                        <input id="referenciaPago" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="#0012345" type="text">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest px-1">Fecha de Transacción <span id="fechaRequired" class="text-error">*</span></label>
+                                        <input id="fechaPago" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" type="date">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Section: Graduate Details -->
+                    <!-- 03: Observaciones -->
                     <div>
                         <div class="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
                             <span class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-primary-container text-white flex items-center justify-center text-xs font-bold">03</span>
                             <h4 class="text-lg md:text-xl font-headline font-bold text-primary uppercase tracking-tight">Observaciones Adicionales</h4>
                         </div>
-                      
+                        <div class="space-y-2">
+                            <textarea id="observaciones" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="Requerimientos dietéticos, accesibilidad especial, etc." rows="3"></textarea>
+                        </div>
                     </div>
 
-                    <!-- Section: Notes -->
-                    <div class="space-y-2">
-
-                        <textarea id="observaciones" class="w-full bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-secondary/20 focus:bg-white transition-all py-3 px-4 text-base" placeholder="Requerimientos dietéticos, accesibilidad especial, etc." rows="3"></textarea>
-                    </div>
-
+                    <!-- Botón de envío -->
                     <div class="pt-4 md:pt-8">
                         <button id="submitBtn" type="submit" class="group flex items-center justify-center gap-3 md:gap-4 w-full bg-primary text-white py-4 md:py-5 rounded-full font-headline font-extrabold text-lg md:text-xl hover:bg-tertiary transition-all shadow-xl hover:shadow-2xl active:scale-95 duration-200">
-                            Registrar e Inscribirme
+                            <span id="btnTexto">Registrar e Inscribirme</span>
                             <span class="material-symbols-outlined text-secondary-fixed text-2xl md:text-3xl group-hover:scale-125 transition-transform">check_circle</span>
                         </button>
                         <p class="text-center text-[9px] md:text-[10px] text-on-surface-variant uppercase tracking-widest mt-4 md:mt-6">Secure registration portal • Verified by Clinical Curator</p>
@@ -411,7 +444,7 @@
         </div>
     </main>
 
-    <!-- Footer - Responsive -->
+    <!-- Footer -->
     <footer class="flex flex-col md:flex-row justify-between items-center px-4 md:px-12 py-8 md:py-12 w-full border-t border-[#c8c5d0]/15 bg-[#f7f9fb] font-['Inter'] text-xs uppercase tracking-widest gap-4">
         <div class="text-center md:text-left">
             <p class="text-[#47464f] text-[10px] md:text-xs"> <a href="https://nexologic.netlify.app/" target="_blank" rel="noopener noreferrer" class="hover:underline">Nexo Logic</a> © 2026 Curador clínico pediátrico. Todos los derechos reservados.</p>
@@ -429,29 +462,37 @@
     </footer>
 
     <script>
-        // Variables globales
+        // === Variables globales ===
         let tasaEuroBs = 0;
         const URL_WEBAPP = 'https://script.google.com/macros/s/AKfycbyOUtYSBdL4vQp8S2bEiHit1ZijA7t5N59gefdv81FkZqULrizhxfF7PMCozbb03oPrAg/exec';
-        
-        // Elementos del DOM
+
+        // === Elementos del DOM ===
         const overlay = document.getElementById('overlay');
         const alertModal = document.getElementById('alertModal');
         const alertMessage = document.getElementById('alertMessage');
         const alertIcon = document.getElementById('alertIcon');
         const closeAlertBtn = document.getElementById('closeAlert');
         const submitBtn = document.getElementById('submitBtn');
+        const btnTexto = document.getElementById('btnTexto');
         const categoriaSelect = document.getElementById('categoria');
         const montoMostrado = document.getElementById('montoMostrado');
-        
-        // Función para formatear números con separadores de miles y decimales
+        const sinPagoToggle = document.getElementById('sinPagoToggle');
+        const pagoFields = document.getElementById('pagoFields');
+        const sinPagoBanner = document.getElementById('sinPagoBanner');
+        const refRequired = document.getElementById('refRequired');
+        const fechaRequired = document.getElementById('fechaRequired');
+        const referenciaPago = document.getElementById('referenciaPago');
+        const fechaPagoInput = document.getElementById('fechaPago');
+
+        // === Formatear dinero ===
         function formatMoney(amount) {
             return new Intl.NumberFormat('es-VE', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
             }).format(amount);
         }
-        
-        // Función para obtener la tasa del Euro desde la API
+
+        // === Obtener tasa del Euro ===
         async function obtenerTasaEuro() {
             try {
                 const response = await fetch('https://ve.dolarapi.com/v1/euros/oficial');
@@ -461,37 +502,74 @@
             } catch (error) {
                 console.error('Error obteniendo tasa:', error);
                 tasaEuroBs = 556.51900185;
-                mostrarAlerta('⚠️ No se pudo obtener la tasa de cambio actual. Se usará una tasa de referencia.', 'error');
             }
         }
-        
-        // Función para actualizar el monto en Bs según la categoría seleccionada
+
+        // === Actualizar monto en Bs ===
         function actualizarMonto() {
-            const euros = parseFloat(categoriaSelect.value);
-            if (isNaN(euros) || euros === 0 || tasaEuroBs === 0) {
+            const valor = categoriaSelect.value;
+            let euros = 0;
+            if (valor === '15_residente') {
+                euros = 15;
+            } else {
+                euros = parseFloat(valor) || 0;
+            }
+            if (euros === 0 || tasaEuroBs === 0) {
                 montoMostrado.value = '';
                 return;
             }
             const montoBs = euros * tasaEuroBs;
             montoMostrado.value = `Bs ${formatMoney(montoBs)}`;
         }
-        
-        // Función para mostrar alertas modales
+
+        // === Toggle sin pago ===
+        sinPagoToggle.addEventListener('change', function () {
+            const sinPago = this.checked;
+
+            if (sinPago) {
+                // Ocultar campos de pago
+                pagoFields.classList.add('hidden-fields');
+                sinPagoBanner.classList.remove('hidden');
+                // Quitar required de campos de pago
+                referenciaPago.removeAttribute('required');
+                fechaPagoInput.removeAttribute('required');
+                refRequired.classList.add('hidden');
+                fechaRequired.classList.add('hidden');
+                // Cambiar texto del botón
+                btnTexto.textContent = 'Registrar sin Pago';
+                submitBtn.classList.remove('bg-primary');
+                submitBtn.classList.add('bg-secondary');
+            } else {
+                // Mostrar campos de pago
+                pagoFields.classList.remove('hidden-fields');
+                sinPagoBanner.classList.add('hidden');
+                // Restaurar required
+                referenciaPago.setAttribute('required', '');
+                fechaPagoInput.setAttribute('required', '');
+                refRequired.classList.remove('hidden');
+                fechaRequired.classList.remove('hidden');
+                // Restaurar texto del botón
+                btnTexto.textContent = 'Registrar e Inscribirme';
+                submitBtn.classList.remove('bg-secondary');
+                submitBtn.classList.add('bg-primary');
+            }
+        });
+
+        // === Mostrar alertas ===
         function mostrarAlerta(mensaje, tipo) {
             alertMessage.textContent = mensaje;
             alertIcon.textContent = tipo === 'success' ? 'check_circle' : (tipo === 'error' ? 'error' : 'info');
             alertIcon.className = `material-symbols-outlined text-4xl mb-2 ${
                 tipo === 'success' ? 'text-green-500' : (tipo === 'error' ? 'text-red-500' : 'text-blue-500')
             }`;
+            alertContent.className = `alert-content alert-${tipo}`;
             alertModal.classList.add('active');
         }
-        
+
         // Cerrar alerta
-        closeAlertBtn.onclick = () => {
-            alertModal.classList.remove('active');
-        };
-        
-        // Mostrar/ocultar overlay de carga
+        closeAlertBtn.onclick = () => alertModal.classList.remove('active');
+
+        // === Loading ===
         function setLoading(loading) {
             if (loading) {
                 overlay.classList.add('active');
@@ -505,12 +583,13 @@
                 submitBtn.style.cursor = 'pointer';
             }
         }
-        
-        // Validar campos del formulario
+
+        // === Validar formulario ===
         function validarFormulario() {
-            const camposRequeridos = ['nombreCompleto', 'cedula', 'email', 'telefono', 'categoria', 'referenciaPago', 'fechaPago'];
+            const sinPago = sinPagoToggle.checked;
+            const camposRequeridos = ['nombreCompleto', 'cedula', 'email', 'telefono', 'categoria'];
             let valido = true;
-            
+
             for (let campo of camposRequeridos) {
                 const elemento = document.getElementById(campo);
                 if (!elemento.value.trim()) {
@@ -522,49 +601,76 @@
                     elemento.style.backgroundColor = '';
                 }
             }
-            
-            if (!montoMostrado.value) {
-                mostrarAlerta('❌ Por favor selecciona una categoría profesional', 'error');
-                return false;
-            }
-            
+
             if (!valido) {
-                mostrarAlerta('❌ Por favor completa todos los campos obligatorios', 'error');
+                mostrarAlerta('Por favor completa todos los campos obligatorios.', 'error');
                 return false;
             }
+
+            // Solo validar campos de pago si NO está activado "sin pago"
+            if (!sinPago) {
+                const camposPago = ['referenciaPago', 'fechaPago'];
+                let pagoValido = true;
+                for (let campo of camposPago) {
+                    const elemento = document.getElementById(campo);
+                    if (!elemento.value.trim()) {
+                        elemento.style.border = '2px solid #ba1a1a';
+                        elemento.style.backgroundColor = '#ffdad6';
+                        pagoValido = false;
+                    } else {
+                        elemento.style.border = 'none';
+                        elemento.style.backgroundColor = '';
+                    }
+                }
+                if (!pagoValido) {
+                    mostrarAlerta('Por favor completa los datos de pago o activa "Registrar sin pago".', 'error');
+                    return false;
+                }
+            }
+
             return true;
         }
-        
-        // Enviar registro
+
+        // === Enviar registro ===
         async function enviarRegistro() {
             if (!validarFormulario()) return;
-            
-            const montoBsTexto = montoMostrado.value.replace('Bs ', '').replace(/\./g, '').replace(',', '.');
-            const montoPagado = parseFloat(montoBsTexto);
-            const valorEuros = parseFloat(categoriaSelect.value);
-            
+
+            const sinPago = sinPagoToggle.checked;
+            const valor = categoriaSelect.value;
+            let euros = 0;
             let categoriaTexto = '';
-            switch(valorEuros) {
-                case 10: categoriaTexto = 'bachiller'; break;
-                case 15: categoriaTexto = 'medico_general'; break;
-                case 25: categoriaTexto = 'especialista'; break;
-                default: categoriaTexto = 'residente_enfermeria';
+
+            if (valor === '15_residente') {
+                euros = 15;
+                categoriaTexto = 'residente_enfermeria';
+            } else {
+                euros = parseFloat(valor) || 0;
             }
-            
+
+            // Mapear categoría
+            if (valor === '10') categoriaTexto = 'bachiller';
+            else if (valor === '15') categoriaTexto = 'medico_general';
+            else if (valor === '25') categoriaTexto = 'especialista';
+
+            // Calcular monto en Bs
+            let montoPagado = 0;
+            if (!sinPago && euros > 0 && tasaEuroBs > 0) {
+                montoPagado = euros * tasaEuroBs;
+            }
+
             const datos = {
                 nombreCompleto: document.getElementById('nombreCompleto').value.trim(),
                 cedula: document.getElementById('cedula').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 telefono: document.getElementById('telefono').value.trim(),
                 categoria: categoriaTexto,
-                referenciaPago: document.getElementById('referenciaPago').value.trim(),
+                referenciaPago: sinPago ? 'SIN PAGO' : document.getElementById('referenciaPago').value.trim(),
                 montoPagado: montoPagado,
-                fechaPago: document.getElementById('fechaPago').value,
-                nombreEgresado: document.getElementById('nombreEgresado').value.trim(),
-                anoEgreso: document.getElementById('anoEgreso').value.trim(),
+                fechaPago: sinPago ? 'Pendiente' : document.getElementById('fechaPago').value,
+                estadoPago: sinPago ? 'Pendiente' : 'Por verificar',
                 observaciones: document.getElementById('observaciones').value.trim()
             };
-            
+
             setLoading(true);
             try {
                 await fetch(URL_WEBAPP, {
@@ -573,28 +679,47 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(datos)
                 });
-                mostrarAlerta('✅ ¡Registro exitoso! Tu pago está pendiente de verificación. Recibirás un correo de confirmación.', 'success');
+
+                if (sinPago) {
+                    mostrarAlerta('¡Registro exitoso! Tu inscripción quedó con estado "Pendiente de pago". Puedes completar tu pago más adelante.', 'success');
+                } else {
+                    mostrarAlerta('¡Registro exitoso! Tu pago está pendiente de verificación. Recibirás un correo de confirmación.', 'success');
+                }
+
                 document.getElementById('registroForm').reset();
                 montoMostrado.value = '';
+                // Restaurar estado visual del toggle
+                sinPagoToggle.checked = false;
+                sinPagoToggle.dispatchEvent(new Event('change'));
             } catch (error) {
                 console.error('Error:', error);
-                mostrarAlerta('❌ Error al enviar el registro. Por favor intenta nuevamente.', 'error');
+                mostrarAlerta('Error al enviar el registro. Por favor intenta nuevamente.', 'error');
             } finally {
                 setLoading(false);
             }
         }
-        
-        // Event Listeners
+
+        // === Event Listeners ===
         document.getElementById('registroForm').addEventListener('submit', (e) => {
             e.preventDefault();
             enviarRegistro();
         });
-        
+
         categoriaSelect.addEventListener('change', actualizarMonto);
-        
+
+        // Limpiar estilos de error al escribir
+        document.querySelectorAll('input, select, textarea').forEach(el => {
+            el.addEventListener('input', function () {
+                this.style.border = 'none';
+                this.style.backgroundColor = '';
+            });
+        });
+
+        // === Init ===
         (async function init() {
             await obtenerTasaEuro();
-            categoriaSelect.addEventListener('change', actualizarMonto);
+            // Inicializar estado del toggle
+            sinPagoToggle.dispatchEvent(new Event('change'));
         })();
     </script>
 </body>
